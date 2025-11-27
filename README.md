@@ -29,3 +29,17 @@ pip install -r requirements.txt
 ```
 
 If `box2d-py` fails to build on Mac M1/M2, install swig via conda: `conda install swig`.
+
+### 3. Self-Made PPO Implementation
+I implemented PPO from scratch to deeply understand the algorithm. The implementation includes:
+- Generalized Advantage Estimation (GAE)
+- Clipped objective function
+- Multiple epochs of minibatch updates
+- Proper value function training
+
+
+* **Results:** Pre-trained model on Pong-v5 achieving average reward of -5 (beats random policy which scores -21)
+* **Architecture:** CNN-based Actor-Critic with orthogonal initialization
+
+* **How to run training:**
+  run main.ipynb in selfmade_ppo directory

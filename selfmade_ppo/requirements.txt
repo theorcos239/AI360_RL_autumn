@@ -1,0 +1,8 @@
+torch
+numpy
+gymnasium
+ale-py
+tqdm
+
+pandas
+plotly

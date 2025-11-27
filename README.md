@@ -1,65 +1,31 @@
-<<<<<<< HEAD
-# AI360_RL_autumn
-=======
-# RL Initialization Study
+# AI360 RL Coursework
 
-This project explores the impact of **weight initialization** on the performance and stability of Reinforcement Learning algorithms (PPO and TRPO) using Stable Baselines 3.
+This repo contains my experiments for the Autumn 2024 RL course.
+There are two main parts here: playing with PPO/TRPO initializations and analyzing KL divergence behavior.
 
-We test different initialization strategies across environments of varying complexity: **CartPole** (Simple), **Acrobot** (Intermediate), and **Atari Pong** (Complex, CNN-based).
+## Structure
 
-## Installation
+### 1. Initialization Experiments (`initialization_experiments/`)
+I wanted to check how much weight initialization actually matters for PPO and TRPO.
+Testing Orthogonal (default in SB3) vs Xavier vs Random vs "Binary" (just to break things).
 
-1. Clone the repository.
-2. Create a conda environment (optional but recommended):
-   ```bash
-   conda create -n rl_init python=3.10
-   conda activate rl_init
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   *Note: On Apple Silicon (M1/M2), ensure `swig` is installed (`conda install swig`) for Box2D support.*
+*   **Environments:** CartPole, Acrobot, and Atari Pong.
+*   **Code:** Custom policy classes in `src/policies.py`.
+*   **How to run:**
+    ```bash
+    python initialization_experiments/experiments/run_acrobot_ppo.py
+    ```
 
-## Project Structure
+### 2. KL Divergence Analysis (`kl_experiments/`)
+Visualizing how KL divergence behaves for different distributions.
+*(Scripts `kl_variants.py` and `plot_kl_lines.py` act as sandboxes for math tests).*
 
-```
-.
-├── src/                # Core logic
-│   ├── policies.py     # Custom Policy classes (Xavier, Uniform, etc.)
-│   ├── callbacks.py    # Training callbacks (logging, tqdm)
-│   └── utils.py        # Experiment runners and plotting
-├── experiments/        # Executable scripts
-│   ├── run_cartpole_comparison.py
-│   ├── run_acrobot_ppo.py
-│   ├── run_acrobot_trpo.py
-│   └── run_pong_ppo.py
-└── results/            # Output plots
-```
+## Setup
 
-## Initializations Tested
-
-1.  **Orthogonal (Default in SB3):** Preserves gradient norm, ideal for deep networks. Uses gain=0.01 for action layer to maximize initial exploration.
-2.  **Xavier (Glorot):** Standard for Tanh activations. Balances variance across layers.
-3.  **Uniform:** Random weights from `[-0.1, 0.1]` (or `[-0.05, 0.05]` for CNN). Naive approach.
-4.  **Normal:** Random weights from `N(0, 0.1)`.
-5.  **Binary:** Weights are randomly `{0, 1}`. Extreme case to demonstrate saturation issues.
-
-## Usage
-
-Run any experiment from the root directory:
+Just install the requirements. You'll need `swig` for Box2D (LunarLander/Acrobot) if you're on Mac.
 
 ```bash
-# Quick test on CartPole
-python experiments/run_cartpole_comparison.py
-
-# Stability analysis on Acrobot (11 seeds)
-python experiments/run_acrobot_ppo.py
-
-# Deep RL test on Pong (requires ~20-30 min)
-python experiments/run_pong_ppo.py
+pip install -r requirements.txt
 ```
 
-Results (plots) will be saved in the `results/` folder.
-
->>>>>>> 129561d (Add RL initialization experiments (PPO/TRPO stability))
+If `box2d-py` fails to build on Mac M1/M2, install swig via conda: `conda install swig`.
